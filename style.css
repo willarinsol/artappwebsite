@@ -1,0 +1,340 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* --- Carousel Styles --- */
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  padding: 40px 0;
+  opacity: 0;
+  transform: translateY(0);
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.carousel-container.visible {
+  opacity: 1;
+}
+
+.carousel-container.fade-out {
+  opacity: 0;
+  transform: translateY(-50px);
+  pointer-events: none;
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-loop 30s linear infinite;
+}
+
+.carousel-track img {
+  height: 200px;
+  width: auto;
+  margin: 0 10px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes scroll-loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Main Layout --- */
+.hero,
+.end {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 8vw, 56px);
+  margin-bottom: 10px;
+}
+
+.hero p,
+.end p {
+  color: #ccc;
+  font-size: 18px;
+}
+
+.scroll-section {
+  height: 300vh;
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* --- Gallery & Cards --- */
+.gallery {
+  width: 90%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  height: 900px;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: translateY(80px) scale(0.8);
+  transition: 0.7s ease;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.counter {
+  position: absolute;
+  bottom: 10px;
+  color: #aaa;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/* --- Mobile View --- */
+@media (max-width: 768px) {
+  .scroll-section {
+    height: 400vh; /* More scroll space for mobile */
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card {
+    height: 280px;
+  }
+
+  .carousel-track img {
+    height: 150px;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* --- Carousel Styles --- */
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  padding: 10px 0;
+  opacity: 0;
+  transform: translateY(0);
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.carousel-container.visible {
+  opacity: 1;
+}
+
+.carousel-container.fade-out {
+  opacity: 0;
+  transform: translateY(-50px);
+  pointer-events: none;
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-loop 30s linear infinite;
+}
+
+.carousel-track img {
+  height: 200px;
+  width: auto;
+  margin: 0 10px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes scroll-loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Main Layout --- */
+.hero,
+.end {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 8vw, 56px);
+  margin-bottom: 10px;
+}
+
+.hero p,
+.end p {
+  color: #ccc;
+  font-size: 18px;
+}
+
+.scroll-section {
+  height: 300vh;
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* --- Gallery & Cards --- */
+.gallery {
+  width: 90%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  height: 660px;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: translateY(80px) scale(0.8);
+  transition: 0.7s ease;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.counter {
+  position: absolute;
+  bottom: 25px;
+  color: #aaa;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/* --- Mobile View --- */
+@media (max-width: 768px) {
+  .scroll-section {
+    height: 400vh; /* More scroll space for mobile */
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card {
+    height: 280px;
+  }
+
+  .carousel-track img {
+    height: 150px;
+  }
+}
+/* --- Back to Top Button --- */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: #ccc;
+  transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+}
