@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Carousel --- */
+/* --- Infinite Carousel --- */
 .carousel-container {
   width: 100%;
   overflow: hidden;
@@ -52,7 +52,7 @@ body {
   }
 }
 
-/* --- Layout --- */
+/* --- Layout Sections --- */
 .hero,
 .end {
   height: 100vh;
@@ -70,7 +70,7 @@ body {
 }
 
 .scroll-section {
-  height: 800vh; /* Deep scroll for 7 scenes + multi-state transitions */
+  height: 800vh; /* Adjust for more/less scroll time per scene */
   position: relative;
 }
 
@@ -84,45 +84,48 @@ body {
   overflow: hidden;
 }
 
-/* --- Story Scene Layout --- */
+/* --- Scene Transitions --- */
 .story-container {
   width: 90%;
   max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .image-wrapper {
-  flex: 0 0 100%; /* State: Big Picture */
+  flex: 0 0 100%; /* Default Full Screen */
   display: flex;
   justify-content: center;
-  transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .image-wrapper img {
   max-width: 100%;
   max-height: 80vh;
   border-radius: 20px;
-  object-fit: contain; /* Keep the size, don't cut */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  object-fit: contain; /* Prevents cropping */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.8s ease,
+    filter 0.6s ease;
 }
 
 .text-card {
   flex: 0;
   width: 0;
   opacity: 0;
-  transform: translateX(50px);
+  transform: translateX(100px);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 24px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- STATE: Side-by-Side --- */
+/* STATE: Side-by-Side (Active) */
 .story-container.state-side .image-wrapper {
   flex: 0 0 50%;
 }
@@ -135,10 +138,10 @@ body {
   margin-left: 5%;
 }
 
-/* --- STATE: Exit (Fading out before next scene) --- */
+/* STATE: Exit (Fade out/Slide out) */
 .story-container.state-exit .text-card {
   opacity: 0;
-  transform: translateX(-50px);
+  transform: translateX(-100px);
   flex: 0 0 0%;
   margin-left: 0;
   padding: 0;
@@ -146,13 +149,14 @@ body {
 
 .story-container.state-exit .image-wrapper {
   flex: 0 0 100%;
+  filter: blur(10px) brightness(0.6);
 }
 
-/* --- UI Components --- */
+/* --- UI Controls --- */
 .counter {
   position: absolute;
   bottom: 30px;
-  color: #555;
+  color: #777;
   font-weight: bold;
   letter-spacing: 2px;
 }
@@ -172,7 +176,7 @@ body {
   opacity: 0;
   visibility: hidden;
   transition: 0.3s;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .back-to-top.show {
@@ -180,7 +184,7 @@ body {
   visibility: visible;
 }
 
-/* Mobile */
+/* Mobile View */
 @media (max-width: 768px) {
   .story-container.state-side {
     flex-direction: column;
