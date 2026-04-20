@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Infinite Carousel --- */
+/* --- Carousel --- */
 .carousel-container {
   width: 100%;
   overflow: hidden;
@@ -21,7 +21,6 @@ body {
     opacity 1s ease,
     transform 1s ease;
 }
-
 .carousel-container.visible {
   opacity: 1;
 }
@@ -35,7 +34,6 @@ body {
   width: max-content;
   animation: scroll-loop 30s linear infinite;
 }
-
 .carousel-track img {
   height: 120px;
   margin: 0 10px;
@@ -52,7 +50,7 @@ body {
   }
 }
 
-/* --- Layout Sections --- */
+/* --- Layout --- */
 .hero,
 .end {
   height: 100vh;
@@ -70,7 +68,7 @@ body {
 }
 
 .scroll-section {
-  height: 800vh; /* Adjust for more/less scroll time per scene */
+  height: 800vh;
   position: relative;
 }
 
@@ -84,18 +82,27 @@ body {
   overflow: hidden;
 }
 
-/* --- Scene Transitions --- */
+/* --- Story Scene Layout --- */
 .story-container {
   width: 90%;
   max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Entrance from bottom */
+  transform: translateY(100vh);
+  opacity: 0;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* State: Active (Big Picture or Side-by-Side) */
+.story-container.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
 .image-wrapper {
-  flex: 0 0 100%; /* Default Full Screen */
+  flex: 0 0 100%;
   display: flex;
   justify-content: center;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -105,11 +112,8 @@ body {
   max-width: 100%;
   max-height: 80vh;
   border-radius: 20px;
-  object-fit: contain; /* Prevents cropping */
+  object-fit: contain;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  transition:
-    transform 0.8s ease,
-    filter 0.6s ease;
 }
 
 .text-card {
@@ -125,11 +129,10 @@ body {
   transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* STATE: Side-by-Side (Active) */
+/* STATE: Side-by-Side */
 .story-container.state-side .image-wrapper {
   flex: 0 0 50%;
 }
-
 .story-container.state-side .text-card {
   flex: 0 0 45%;
   opacity: 1;
@@ -138,29 +141,19 @@ body {
   margin-left: 5%;
 }
 
-/* STATE: Exit (Fade out/Slide out) */
-.story-container.state-exit .text-card {
+/* STATE: Exit (Slide to top) */
+.story-container.state-exit {
+  transform: translateY(-100vh);
   opacity: 0;
-  transform: translateX(-100px);
-  flex: 0 0 0%;
-  margin-left: 0;
-  padding: 0;
 }
 
-.story-container.state-exit .image-wrapper {
-  flex: 0 0 100%;
-  filter: blur(10px) brightness(0.6);
-}
-
-/* --- UI Controls --- */
+/* --- UI --- */
 .counter {
   position: absolute;
   bottom: 30px;
   color: #777;
   font-weight: bold;
-  letter-spacing: 2px;
 }
-
 .back-to-top {
   position: fixed;
   bottom: 30px;
@@ -178,13 +171,11 @@ body {
   transition: 0.3s;
   z-index: 1000;
 }
-
 .back-to-top.show {
   opacity: 1;
   visibility: visible;
 }
 
-/* Mobile View */
 @media (max-width: 768px) {
   .story-container.state-side {
     flex-direction: column;

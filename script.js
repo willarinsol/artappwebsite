@@ -45,7 +45,6 @@ const backToTopBtn = document.getElementById("backToTop");
 
 let currentIdx = -1;
 
-// Initialize Carousel
 function initCarousel() {
   const imagesHTML = scenes
     .map((s) => `<img src="${s.img}" alt="Carousel">`)
@@ -54,54 +53,56 @@ function initCarousel() {
   setTimeout(() => carouselSection.classList.add("visible"), 100);
 }
 
-// Update Gallery State
 function updateGallery(index, internalProgress) {
-  // 0.0 - 0.3: Big Picture Incoming
-  // 0.3 - 0.7: Side-by-Side (Active Text)
-  // 0.7 - 1.0: Exit (Preparation for next)
-  const isSideState = internalProgress > 0.3 && internalProgress <= 0.7;
-  const isExitState = internalProgress > 0.7;
+  // 0.0 - 0.2: Sliding In from bottom
+  // 0.2 - 0.4: Big Picture (Active)
+  // 0.4 - 0.8: Side-by-Side (Active)
+  // 0.8 - 1.0: Sliding Out to top
 
-  // Swap content only if index changes
+  const isActive = internalProgress > 0.05 && internalProgress <= 0.8;
+  const isSideState = internalProgress > 0.4 && internalProgress <= 0.8;
+  const isExitState = internalProgress > 0.8;
+
   if (index !== currentIdx) {
     currentIdx = index;
     const data = scenes[index];
 
-    // Smooth fade the inner container during the swap
-    storyContainer.style.opacity = "0";
-
-    setTimeout(() => {
-      storyContainer.innerHTML = `
-        <div class="image-wrapper">
-          <img src="${data.img}" alt="Story Image">
-        </div>
-        <div class="text-card">
-          <h2>${data.title}</h2>
-          <p>${data.desc}</p>
-        </div>
-      `;
-      storyContainer.style.opacity = "1";
-    }, 50);
+    // Instant clear for the slide transition
+    storyContainer.innerHTML = `
+      <div class="image-wrapper">
+        <img src="${data.img}" alt="Story Image">
+      </div>
+      <div class="text-card">
+        <h2>${data.title}</h2>
+        <p>${data.desc}</p>
+      </div>
+    `;
   }
 
-  // Handle CSS Class State Toggles
+  // Handle CSS Class States
+  if (isActive) {
+    storyContainer.classList.add("active");
+  } else {
+    storyContainer.classList.remove("active");
+  }
+
   if (isSideState) {
     storyContainer.classList.add("state-side");
-    storyContainer.classList.remove("state-exit");
-  } else if (isExitState) {
-    storyContainer.classList.remove("state-side");
-    storyContainer.classList.add("state-exit");
   } else {
     storyContainer.classList.remove("state-side");
+  }
+
+  if (isExitState) {
+    storyContainer.classList.add("state-exit");
+    storyContainer.classList.remove("active");
+  } else {
     storyContainer.classList.remove("state-exit");
   }
 
   counter.textContent = `SCENE ${index + 1} / ${scenes.length}`;
 }
 
-// Scroll Event Listener
 window.addEventListener("scroll", () => {
-  // Back to Top & Carousel Fade
   if (window.scrollY > 400) {
     backToTopBtn.classList.add("show");
     carouselSection.classList.add("fade-out");
@@ -110,7 +111,6 @@ window.addEventListener("scroll", () => {
     carouselSection.classList.remove("fade-out");
   }
 
-  // Calculate Scene Progress
   const rect = section.getBoundingClientRect();
   const totalHeight = section.offsetHeight - window.innerHeight;
   let progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
@@ -122,11 +122,9 @@ window.addEventListener("scroll", () => {
   updateGallery(index, internalProgress);
 });
 
-// Back to Top functionality
 backToTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Start the page
 initCarousel();
 updateGallery(0, 0);
