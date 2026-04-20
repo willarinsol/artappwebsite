@@ -1,113 +1,111 @@
-const sets = [
-  ["resources/1Final.png"],
-  ["resources/Final2.png"],
-  ["resources/3Final.png"],
-  ["resources/Final4.png"],
-  ["resources/Final5.png"],
-  ["resources/Final6.png"],
-  ["resources/Final7.png"],
+const scenes = [
+  {
+    img: "resources/1Final.png",
+    title: "The Start",
+    desc: "This is our first big moment together. Scroll more to see the story.",
+  },
+  {
+    img: "resources/Final2.png",
+    title: "Growing",
+    desc: "We started learning more about each other every single day.",
+  },
+  {
+    img: "resources/3Final.png",
+    title: "Adventure",
+    desc: "Exploring new places and creating memories that last forever.",
+  },
+  {
+    img: "resources/Final4.png",
+    title: "Support",
+    desc: "Always being there for one another, through thick and thin.",
+  },
+  {
+    img: "resources/Final5.png",
+    title: "Laughter",
+    desc: "Because every day is better when we are laughing together.",
+  },
+  {
+    img: "resources/Final6.png",
+    title: "Unity",
+    desc: "Two individuals becoming one unstoppable team.",
+  },
+  {
+    img: "resources/Final7.png",
+    title: "Forever",
+    desc: "The journey continues, and the best is yet to come.",
+  },
 ];
 
-const gallery = document.getElementById("gallery");
+const storyContainer = document.getElementById("storyContainer");
 const counter = document.getElementById("counter");
 const section = document.getElementById("scrollSection");
 const carouselTrack = document.getElementById("carouselTrack");
 const carouselSection = document.getElementById("carouselSection");
-
-let currentSetIndex = -1;
-
-// 1. Initialize Infinite Carousel
-function initCarousel() {
-  const allImages = sets.flat();
-  // Create image elements from the data sets
-  const imagesHTML = allImages
-    .map((src) => `<img src="${src}" alt="Carousel item">`)
-    .join("");
-
-  // Duplicate images for a seamless infinite loop
-  carouselTrack.innerHTML = imagesHTML + imagesHTML;
-
-  // Fade in carousel on load
-  setTimeout(() => {
-    carouselSection.classList.add("visible");
-  }, 100);
-}
-
-// 2. Intersection Observer for Carousel Disappearance
-const carouselObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        carouselSection.classList.add("fade-out");
-      } else {
-        carouselSection.classList.remove("fade-out");
-      }
-    });
-  },
-  { threshold: 0.1 },
-);
-
-carouselObserver.observe(carouselSection);
-
-// 3. Render Scroll Gallery Sets
-function render(index) {
-  if (index === currentSetIndex) return;
-  currentSetIndex = index;
-
-  gallery.innerHTML = "";
-  sets[index].forEach((src, i) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.style.backgroundImage = `url(${src})`;
-    gallery.appendChild(card);
-
-    // Staggered entry animation
-    setTimeout(() => card.classList.add("show"), 100 * i);
-  });
-
-  counter.textContent = `SCENE ${index + 1} / ${sets.length}`;
-}
-
-// 4. Scroll Logic
-window.addEventListener("scroll", () => {
-  const rect = section.getBoundingClientRect();
-  const totalHeight = section.offsetHeight - window.innerHeight;
-
-  // Calculate scroll progress (0 to 1)
-  let progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
-
-  // Map progress to the current image set
-  let index = Math.min(sets.length - 1, Math.floor(progress * sets.length));
-
-  render(index);
-});
-
 const backToTopBtn = document.getElementById("backToTop");
 
-// 5. Back to Top Logic
-window.addEventListener("scroll", () => {
-  // Show button after scrolling down 400px
-  if (window.scrollY > 400) {
-    backToTopBtn.classList.add("show");
-  } else {
-    backToTopBtn.classList.remove("show");
+let currentIdx = -1;
+let currentState = ""; // "big" or "side"
+
+function initCarousel() {
+  const imagesHTML = scenes.map((s) => `<img src="${s.img}">`).join("");
+  carouselTrack.innerHTML = imagesHTML + imagesHTML;
+}
+
+function updateGallery(index, isSideState) {
+  // Only re-render HTML if we switch images
+  if (index !== currentIdx) {
+    currentIdx = index;
+    const data = scenes[index];
+    storyContainer.innerHTML = `
+      <div class="image-wrapper">
+        <img src="${data.img}" alt="Story">
+      </div>
+      <div class="text-card">
+        <h2>${data.title}</h2>
+        <p>${data.desc}</p>
+      </div>
+    `;
   }
 
-  // --- Keep your existing scroll gallery logic here ---
+  // Toggle classes for the transition
+  if (isSideState) {
+    storyContainer.classList.add("state-side");
+  } else {
+    storyContainer.classList.remove("state-side");
+  }
+
+  counter.textContent = `SCENE ${index + 1} / ${scenes.length}`;
+}
+
+window.addEventListener("scroll", () => {
+  // Back to Top & Carousel Fade
+  if (window.scrollY > 400) {
+    backToTopBtn.classList.add("show");
+    carouselSection.classList.add("fade-out");
+  } else {
+    backToTopBtn.classList.remove("show");
+    carouselSection.classList.remove("fade-out");
+  }
+
+  // Scroll Calculation
   const rect = section.getBoundingClientRect();
   const totalHeight = section.offsetHeight - window.innerHeight;
   let progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
-  let index = Math.min(sets.length - 1, Math.floor(progress * sets.length));
-  render(index);
+
+  // Determine which scene we are in
+  let sceneProgress = progress * scenes.length;
+  let index = Math.min(scenes.length - 1, Math.floor(sceneProgress));
+
+  // Determine if we are in the first half (Big) or second half (Side) of the current scene
+  let internalProgress = sceneProgress % 1;
+  let isSideState = internalProgress > 0.5;
+
+  updateGallery(index, isSideState);
 });
 
 backToTopBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Initialize on page load
 initCarousel();
-render(0);
+updateGallery(0, false);

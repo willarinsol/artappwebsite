@@ -4,14 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll Story Gallery</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <section class="hero">
       <div>
         <h1>Will Diether Arinsol and Cianyah Mae Mendoza</h1>
-        <p>Scroll down and images change. Scroll up and they go back.</p>
-        <p>Enjoy :)</p>
+        <p>Scroll down to see the transition.</p>
       </div>
       <section class="carousel-container" id="carouselSection">
         <div class="carousel-track" id="carouselTrack"></div>
@@ -20,7 +23,7 @@
 
     <section class="scroll-section" id="scrollSection">
       <div class="sticky">
-        <div class="gallery" id="gallery"></div>
+        <div id="storyContainer" class="story-container"></div>
         <div class="counter" id="counter"></div>
       </div>
     </section>
@@ -28,8 +31,6 @@
     <section class="end">
       <p>The end.</p>
       <button id="backToTop" class="back-to-top" title="Go to top">↑</button>
-
-      <script src="script.js"></script>
     </section>
 
     <script src="script.js"></script>
