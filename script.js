@@ -1,38 +1,38 @@
 const scenes = [
   {
     img: "resources/1Final.png",
-    title: "Chapter One",
-    desc: "This is where it all began. A simple moment that led to something beautiful.",
+    title: "Empty Canvas",
+    desc: "He sat like a forgotten painting, washed in shades of black and white, where time moved but nothing truly lived. The world around him was winter; cold, and silent while his heart remained a garden that had never learned how to bloom. Behind his eyes was a quiet ache for something unseen, something beyond the gray horizon. He did not know that soon, someone would arrive like spring, carrying colors in her hands and life in her footsteps.",
   },
   {
     img: "resources/Final2.png",
-    title: "Growing Together",
-    desc: "Learning about each other more and more as the days go by.",
+    title: "Slipping Sunlight",
+    desc: "While he remained rooted in a world of shadows, she passed beside him like sunlight slipping through a storm. She walked into the frame of his life like the first brushstroke on an empty canvas. Though she was only a stranger in that fleeting moment, Without a word, she became the first sign that even the darkest winters can make room for spring.",
   },
   {
     img: "resources/3Final.png",
-    title: "Shared Dreams",
-    desc: "Building a foundation for the future we want to create side by side.",
+    title: "Fallen Spark",
+    desc: "As she passed like a sunlight, a small piece of her world fell to the ground. Against the endless gray, it shined like a flame in the dark. What seemed like an accident was,  fate’s quiet invitation; a fragment of color placed within his reach. In that fallen object lay the first thread connecting two strangers, proving that even the smallest moments can alter the course of one's life.",
   },
   {
     img: "resources/Final4.png",
-    title: "Support System",
-    desc: "Through every high and low, we remain each other's greatest strength.",
+    title: "Focal Vision",
+    desc: "From his place in the shadows, he watched her sat like a fallen star upon the gray pavement. As he stare in her, the air between them began to hum with a vibrance that resists the surrounding silence. Her radiance served as a silent invitation, spilling across the cold ground and painting a path of color directly to his feet. He sat at the edge of his monochrome life, staring at the bridge of light that was slowly erasing the distance between them.",
   },
   {
     img: "resources/Final5.png",
-    title: "New Adventures",
-    desc: "Exploring the world and discovering new reasons to smile every day.",
+    title: "Bridge",
+    desc: "He reached across the silent to return the fallen light, his hand finally closing the distance between them. As they met, a sudden warmth bled from the tips of his fingers, dissolving the winter of his skin at the first touch. For the first time, he was no longer just a spectator of the spring; he was becoming the very canvas where it chose to bloom.",
   },
   {
     img: "resources/Final6.png",
-    title: "Unbreakable Bond",
-    desc: "It's the small, quiet moments that mean the absolute most.",
+    title: "Shared Frequency",
+    desc: "She leaned in to share a piece of her world, a gesture that finally silenced the static of his gray isolation. At her touch, the melody of color didn't just whisper; it roared through his senses. The dark landscape around them finally surrendered to her radiance, shedding its gray coat to reveal a vibrant, a sanctuary. In the tilt of their heads, he realized that he wasn't just observing her spectrum anymore, he was finally vibrating at the same frequency.",
   },
   {
     img: "resources/Final7.png",
-    title: "Our Forever",
-    desc: "The story doesn't end here; in fact, the best is yet to come.",
+    title: "Bloom behind his Eyes",
+    desc: "The winter that once clouded his vision had finally retreated, leaving behind a gaze that was wide and wonder-filled. Within the mirror of his eye, the world no longer sat in shadows, but shimmered with the vibrant life they now shared together. He realized that the quiet ache in his chest had been replaced by a garden that had finally bloomed, vibrant and full of life. As they stay by each other's side, the colors she brought remained rooted within him, ensuring he would never have to see in gray ",
   },
 ];
 
